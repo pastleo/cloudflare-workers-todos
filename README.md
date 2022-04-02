@@ -1,5 +1,31 @@
 # Cloudflare Workers Todo List App
 
+## Forked from https://github.com/codewithkristian/cloudflare-workers-todos
+
+To test out cloudflare worker and kv feature
+
+```
+npm install -g @cloudflare/wrangler
+git clone this/project
+cd cloudflare-workers-todos/workers
+wrangler login
+wrangler whoami # get account_id
+wrangler kv:namespace create "PASTLEO_TODOS" # get kv_namespaces id
+cp wrangler.toml.example wrangler.toml
+vim wrangler.toml # fill account_id and kv_namespaces id
+wrangler publish
+```
+
+where I deployed to: https://todos.pastleo.workers.dev/
+
+Useful docs:
+
+* https://developers.cloudflare.com/workers/get-started/guide/
+* https://developers.cloudflare.com/workers/cli-wrangler/commands/#kv
+* https://developers.cloudflare.com/workers/platform/pricing/
+
+---
+
 This is the source code for my Cloudflare Workers project - a simple todo application, powered by Cloudflare KV as the primary data source.
 
 ![](./static/demo.png)

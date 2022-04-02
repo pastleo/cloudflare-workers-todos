@@ -1,0 +1,11 @@
+name = "todos"
+type = "javascript"
+
+account_id = "..."
+workers_dev = true
+route = ""
+zone_id = ""
+compatibility_date = "2022-04-02"
+kv_namespaces = [
+  { binding = "PASTLEO_TODOS", id = "..." }
+]

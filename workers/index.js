@@ -1,3 +1,27 @@
+addEventListener('fetch', event => {
+  // event.respondWith(handleRequestHello(event.request))
+  event.respondWith(handleRequestTodo(event.request))
+})
+
+/**
+ * Respond with hello worker text
+ * @param {Request} request
+ */
+async function handleRequestHello(request) {
+  return new Response('Hello worker!', {
+    headers: { 'content-type': 'text/plain' },
+  })
+}
+
+const TodoStore = PASTLEO_TODOS
+async function handleRequestTodo(request) {
+  if (request.method === 'PUT') {
+    return updateTodos(request)
+  } else {
+    return getTodos(request)
+  }
+}
+
 const html = todos => `
 <!DOCTYPE html>
 <html>
@@ -82,8 +106,8 @@ const html = todos => `
 
 const defaultData = { todos: [] }
 
-const setCache = (key, data) => KRISTIAN_TODOS.put(key, data)
-const getCache = key => KRISTIAN_TODOS.get(key)
+const setCache = (key, data) => TodoStore.put(key, data)
+const getCache = key => TodoStore.get(key)
 
 async function getTodos(request) {
   const ip = request.headers.get('CF-Connecting-IP')
@@ -114,15 +138,3 @@ async function updateTodos(request) {
     return new Response(err, { status: 500 })
   }
 }
-
-async function handleRequest(request) {
-  if (request.method === 'PUT') {
-    return updateTodos(request)
-  } else {
-    return getTodos(request)
-  }
-}
-
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
